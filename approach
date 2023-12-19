@@ -16,6 +16,17 @@ pipeline {
         stage('Unit test') {
             steps {
                 sh 'mvn test'
+
+            }
+        }
+        stage('built docker image'){
+            steps{
+                script {
+                    def customImage = docker.built("Sanyukta2704/petclinic:${env.BUILD_NUMBER}","./docker")
+                    docker.withRegistry('https://registry.hub.docker.com','dockerhub') {
+                    customImage.push()
+                    }
+                }
             }
         }
     }
