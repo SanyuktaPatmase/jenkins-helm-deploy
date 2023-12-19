@@ -7,11 +7,5 @@ pipeline {
                 sh 'mvn clean install package'
             }
         }
-        stage ('Copy artifacts') {
-            steps {
-                sh 'pwd'
-                sh 'cp -r target/*.jar docker'
-            }
-        }
     }
 }
